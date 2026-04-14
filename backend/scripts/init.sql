@@ -1,0 +1,3 @@
+-- AvtoRaqam.uz Database Init
+-- ENUM turlarini Alembic migration yaratadi
+-- Bu fayl faqat qo'shimcha init uchun

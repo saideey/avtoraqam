@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ':*)",
+      "Bash(python -c ':*)",
+      "Bash(pip install:*)",
+      "Bash(docker compose:*)",
+      "Bash(curl -s http://localhost:8090/api/listings)",
+      "Bash(python -m json.tool)",
+      "Bash(curl -s -X POST http://localhost:8090/api/auth/login -H \"Content-Type: application/json\" -d '{\"phone_number\":\"+998901234567\",\"password\":\"superadmin_password_change_this\"}')",
+      "Bash(curl:*)",
+      "Bash(node -e \"try { const m = require\\('lucide-react'\\); console.log\\('Car' in m ? 'Car exists' : 'Car NOT found'\\); console.log\\('CarFront' in m ? 'CarFront exists' : 'CarFront NOT found'\\); console.log\\('Tag' in m ? 'Tag exists' : 'Tag NOT found'\\); } catch\\(e\\) { console.log\\(e.message\\); }\")",
+      "Bash(ls C:/Users/i.saidov/PycharmProjects/avtoraqam/frontend/node_modules/lucide-react/dist/esm/icons/car*.js)",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('offers count:', len\\(d.get\\('offers',[]\\)\\)\\); print\\('pagination:', d.get\\('pagination',{}\\)\\)\")",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('logs count:', len\\(d.get\\('logs',[]\\)\\)\\); print\\('first:', d['logs'][0] if d.get\\('logs'\\) else 'none'\\)\")",
+      "Bash(python -c \"import sys,json; [print\\(f\\\\\"  {r['code']} - {r['name_uz']} \\({r['listings_count']} e'lon\\)\\\\\"\\) for r in json.load\\(sys.stdin\\)['regions']]\")",
+      "WebFetch(domain:avtoraqam.uz)",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f\\\\\"{len\\(d['listings']\\)} ta natija\\\\\"\\); [print\\(f\\\\\"  {l['plate_number']} - {l['price']}\\\\\"\\) for l in d['listings']]\")",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); [print\\(f'  {l[\\\\\"plate_number\\\\\"]}'\\) for l in d['listings']]\")",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'{len\\(d[\\\\\"listings\\\\\"]\\)} ta'\\); [print\\(f'  {l[\\\\\"plate_number\\\\\"]}'\\) for l in d['listings']]\")",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\)['listing']; print\\(f\\\\\"views: {d['views_count']}\\\\\"\\)\")",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'payments: {len\\(d[\\\\\"payments\\\\\"]\\)}'\\); print\\(f'pagination: {d[\\\\\"pagination\\\\\"]}'\\)\")",
+      "Bash(python -m json.tool echo \"=== Wrong OTP ===\" curl -s -X POST http://localhost:8090/api/auth/send-register-otp -H \"Content-Type: application/json\" -d '{\"phone_number\":\"+998991234568\"}' curl -s -X POST http://localhost:8090/api/auth/verify-register-otp -H \"Content-Type: application/json\" -d '{\"phone_number\":\"+998991234568\",\"otp\":\"9999\"}')"
+    ]
+  }
+}

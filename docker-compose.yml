@@ -1,0 +1,88 @@
+services:
+
+  # ── PostgreSQL ──────────────────────────────────────────────
+  autoraqam_db:
+    image: postgres:15-alpine
+    container_name: autoraqam_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: autoraqam_db
+      POSTGRES_USER: autoraqam_user
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - autoraqam_pgdata:/var/lib/postgresql/data
+      - ./backend/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5438:5432"
+    networks:
+      - autoraqam_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U autoraqam_user -d autoraqam_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Backend (Flask) ─────────────────────────────────────────
+  autoraqam_backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: autoraqam_backend
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgresql://autoraqam_user:${DB_PASSWORD}@autoraqam_db:5432/autoraqam_db
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - FLASK_ENV=${FLASK_ENV:-development}
+    volumes:
+      - autoraqam_uploads:/app/uploads
+    ports:
+      - "8001:8001"
+    depends_on:
+      autoraqam_db:
+        condition: service_healthy
+    networks:
+      - autoraqam_net
+
+  # ── Frontend (React + Nginx) ─────────────────────────────────
+  autoraqam_frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: autoraqam_frontend
+    restart: unless-stopped
+    ports:
+      - "5174:80"
+    depends_on:
+      - autoraqam_backend
+    networks:
+      - autoraqam_net
+
+  # ── Nginx (Reverse Proxy) ────────────────────────────────────
+  autoraqam_nginx:
+    image: nginx:1.25-alpine
+    container_name: autoraqam_nginx
+    restart: unless-stopped
+    ports:
+      - "8090:80"
+      - "8443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - autoraqam_uploads:/var/www/uploads:ro
+    depends_on:
+      - autoraqam_frontend
+      - autoraqam_backend
+    networks:
+      - autoraqam_net
+
+networks:
+  autoraqam_net:
+    driver: bridge
+    name: autoraqam_network
+
+volumes:
+  autoraqam_pgdata:
+    name: autoraqam_pgdata
+  autoraqam_uploads:
+    name: autoraqam_uploads

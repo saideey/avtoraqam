@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="28" height="20" viewBox="0 0 28 20" xmlns="http://www.w3.org/2000/svg">
+  <!-- Uzbekistan flag simplified to match 28x20 aspect similar to other flags -->
+  <defs>
+    <clipPath id="r">
+      <rect x="0" y="0" width="28" height="20" rx="2"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#r)">
+    <!-- Top blue -->
+    <rect x="0" y="0" width="28" height="7" fill="#0099B5"/>
+    <!-- Middle white -->
+    <rect x="0" y="7" width="28" height="6" fill="#FFFFFF"/>
+    <!-- Bottom green -->
+    <rect x="0" y="13" width="28" height="7" fill="#1EB53A"/>
+    <!-- Red separators -->
+    <rect x="0" y="6.5" width="28" height="1" fill="#CE1126"/>
+    <rect x="0" y="12.5" width="28" height="1" fill="#CE1126"/>
+    <!-- Crescent -->
+    <circle cx="5.5" cy="3.5" r="2.5" fill="#FFFFFF"/>
+    <circle cx="6.2" cy="3.5" r="2.2" fill="#0099B5"/>
+    <!-- 5 small stars -->
+    <g fill="#FFFFFF">
+      <circle cx="9.5" cy="2.2" r="0.35"/>
+      <circle cx="11.0" cy="2.2" r="0.35"/>
+      <circle cx="12.5" cy="2.2" r="0.35"/>
+      <circle cx="10.25" cy="3.4" r="0.35"/>
+      <circle cx="11.75" cy="3.4" r="0.35"/>
+    </g>
+  </g>
+</svg>
